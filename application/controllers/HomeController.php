@@ -2,8 +2,7 @@
 
 namespace application\controllers;
 
-class HomeController
-{
+class HomeController{
     public function index(){
         echo 'index page';
 

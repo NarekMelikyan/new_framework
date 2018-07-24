@@ -2,8 +2,7 @@
 
 namespace application\controllers;
 
-class AccountController
-{
+class AccountController{
     public function login(){
         echo 'login page';
     }
