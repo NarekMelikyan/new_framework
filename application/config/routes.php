@@ -8,24 +8,24 @@
 
 return [
     [
-        'url'=>'/',
-        'method'=>'GET',
-        'action'=>"HomeController@index"
+        'url' => '/',
+        'method' => 'GET',
+        'action' => "HomeController@index"
     ],
     [
-        'url'=>'account/login',
-        'method'=>'GET',
-        'action'=>"AccountController@login"
+        'url' => 'account/login',
+        'method' => 'GET',
+        'action' => "AccountController@login"
     ],
     [
-        'url'=>'account/login',
-        'method'=>'POST',
-        'action'=>"AccountController@login"
+        'url' => 'account/login',
+        'method' => 'POST',
+        'action' => "AccountController@login"
     ],
     [
-        'url'=>'account/registration',
-        'method'=>'GET',
-        'action'=>"AccountController@registration"
+        'url' => 'account/registration',
+        'method' => 'GET',
+        'action' => "AccountController@registration"
     ],
 ];
 
