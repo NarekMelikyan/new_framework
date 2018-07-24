@@ -7,10 +7,8 @@
  */
 
 namespace application\lib;
-class Db
-{
-    public function __construct()
-    {
+class Db{
+    public function __construct(){
         echo 'From DB class<br>';
     }
 }

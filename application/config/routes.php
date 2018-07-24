@@ -6,29 +6,6 @@
  * Time: 11:20
  */
 
-//return [
-//    '' => [
-//        'controller' => 'Home',
-//        'action' => 'index'
-//    ],
-//    '/' => [
-//        'controller' => 'Home',
-//        'action' => 'index'
-//    ],
-//    'account/login' => [
-//        'controller' => 'Account',
-//        'action' => 'login'
-//        ],
-//    'account/registration' => [
-//        'controller' => 'Account',
-//        'action' => 'registration'
-//    ],
-//];
-
-
-
-
-
 return [
     [
         'url'=>'/',

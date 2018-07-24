@@ -6,7 +6,6 @@
  * Time: 11:21
  */
 
-class View
-{
+class View{
 
 }

@@ -6,7 +6,6 @@
  * Time: 11:21
  */
 
-class Controller
-{
+class Controller{
 
 }

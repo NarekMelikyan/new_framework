@@ -67,19 +67,19 @@ class Router{
     }
 
 
-    public function makeRegex(){
-        $str_explode = explode('/', $_SERVER['REQUEST_URI']);
-        $regUrl = '~';
-        foreach ($str_explode as $item) {
-            $pattern = '~\{(\w+)\}~';
-            if (preg_match($pattern, $item)) {
-                $regUrl .=  "\/(?P<$item>[^\/]+)";
-            } else {
-                $regUrl .= '\/' . $item;
-            }
-        }
-
-        $regUrl . '~';
-        $this->regex = $regUrl;
-    }
+//    public function makeRegex(){
+//        $str_explode = explode('/', $_SERVER['REQUEST_URI']);
+//        $regUrl = '~';
+//        foreach ($str_explode as $item) {
+//            $pattern = '~\{(\w+)\}~';
+//            if (preg_match($pattern, $item)) {
+//                $regUrl .=  "\/(?P<$item>[^\/]+)";
+//            } else {
+//                $regUrl .= '\/' . $item;
+//            }
+//        }
+//
+//        $regUrl . '~';
+//        $this->regex = $regUrl;
+//    }
 }
