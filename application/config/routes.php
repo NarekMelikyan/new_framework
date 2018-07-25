@@ -27,6 +27,17 @@ return [
         'method' => 'GET',
         'action' => "AccountController@registration"
     ],
+    [
+        'url' => 'get_book/all',
+        'method' => 'GET',
+        'action' => "BooksController@get_book"
+    ],
+    [
+        'url' => 'get_book/{book_id}/{aaa}',
+        'method' => 'GET',
+        'action' => "BooksController@get_book",
+    ],
+
 ];
 
 
