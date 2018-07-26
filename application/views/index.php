@@ -5,6 +5,6 @@
     <title>MyMVC index page</title>
 </head>
 <body>
-Index page
+<h1>This is index page !!</h1>
 </body>
 </html>

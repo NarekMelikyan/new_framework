@@ -8,7 +8,7 @@
 
 return [
     [
-        'url' => '/',
+        'url' => '',
         'method' => 'GET',
         'action' => "HomeController@index"
     ],

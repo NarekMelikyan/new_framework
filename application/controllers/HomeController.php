@@ -2,8 +2,10 @@
 
 namespace application\controllers;
 
+use application\core\View;
+
 class HomeController{
     public function index(){
-        echo 'index page';
+        View::render('index');
     }
 }
