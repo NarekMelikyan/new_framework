@@ -77,13 +77,16 @@ class Router{
                     $this->params['params'] = $massive;
                 }
             }else{
-                    $this->params = $item;
-            }
 
+                if(trim($_SERVER["REQUEST_URI"],'/') == $item['url']){
+                    $this->params = $item;
+                }
+            }
         }
     }
 
     public function run(){
+
         $param_existing_status = 0;
 
         $action = $this->params['action'];
@@ -91,16 +94,17 @@ class Router{
         $controller = $action_exploded[0];
         $action = $action_exploded[1];
         $path = 'application\controllers\\'.ucfirst($controller);
+
         if(isset($this->params['params'])){
             $parameters = $this->params['params'];
             $param_existing_status = 1;
         }
+
         if(class_exists($path)){
             if(method_exists($path, $action)){
                 $controller = new $path;
                 if($param_existing_status == 1){
                     call_user_func_array([$controller, $action], $parameters);
-//                    $controller->$action($list_of_params);
                 }else{
                     $controller->$action();
                 }
@@ -111,7 +115,6 @@ class Router{
         }else{
             echo 'Controller ' .$controller. ' does not exist !!! ';
         }
-
 
     }
 
