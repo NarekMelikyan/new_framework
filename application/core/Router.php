@@ -93,13 +93,6 @@ class Router{
         $path = 'application\controllers\\'.ucfirst($controller);
         if(isset($this->params['params'])){
             $parameters = $this->params['params'];
-
-//            var_dump($parameters);die;
-//            $list_of_params = [];
-//            foreach ($parameters as $key => $value){
-//                $list_of_params[] = eval("$".$key.';');
-//            }
-//            var_dump($list_of_params);
             $param_existing_status = 1;
         }
         if(class_exists($path)){
