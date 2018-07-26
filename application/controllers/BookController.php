@@ -10,7 +10,11 @@ namespace application\controllers;
 
 class BookController{
 
-    public function get_book($book_id){
-        var_dump($book_id);die;
+    public function get_book($param1,$param2,$param3){
+        echo 'This method parameters are : '. $param1 . ' , ' . $param2 . ' , ' . $param3;
+    }
+
+    public function show_all_books(){
+        echo 'This is all books list';
     }
 }

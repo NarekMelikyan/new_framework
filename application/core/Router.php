@@ -40,7 +40,6 @@ class Router{
             $item['regex'] = $regex;
             $item['params'] = $params;
         }
-
         $this->routes[$method][] = $item;
     }
 
@@ -68,79 +67,62 @@ class Router{
 
         foreach ($this->routes[$this->method] as $item) {
             if(isset($item['regex'])){
-                $pattern = $item['regex'].'';     /////////////////////////////////////////////////////
-                if(preg_match("~$pattern~", $this->url)){
-//                    var_dump($item['regex']);die;
-//                    if(preg_match($item['regex'],$i)){
-//                        var_dump($this->url);die;
-//                    }else{
-//                        var_dump(0);die;
-//                    }
+                $pattern = $item['regex'];
+                if(preg_match("~$pattern~", $this->url, $matches)){
+                    $this->params = $item;
+                    $massive = [];
+                    foreach ($this->params['params'] as $key => $val){
+                        $massive[$val] = $matches[$val];
+                    }
+                    $this->params['params'] = $massive;
                 }
             }else{
-
+                    $this->params = $item;
             }
-        }
 
-        $url = trim($_SERVER['REQUEST_URI'],'/');
-        $arr = [];
-        foreach ($this->routes as $key => $item){
-            $arr [$item['method']][$key] = $item;
-        }
-        foreach ($arr as $key => $item){
-            if($_SERVER['REQUEST_METHOD'] == $key){
-                foreach ($item as $url_info){
-                    $route = $url_info['url'];
-                    if($url == $route){
-                        $this->params = $url_info;
-                        return true;
-
-                    }
-                }
-                return false;
-
-            }
         }
     }
 
     public function run(){
-        if($this->match()){
-            $action = $this->params['action'];
-            $action_exploded = explode('@',$action);
-            $controller = $action_exploded[0];
-            $action = $action_exploded[1];
-            $path = 'application\controllers\\'.ucfirst($controller);
-            if(class_exists($path)){
-                if(method_exists($path,$action)){
-                    $controller = new $path;
-                    $controller->$action();
+        $param_existing_status = 0;
+
+        $action = $this->params['action'];
+        $action_exploded = explode('@', $action);
+        $controller = $action_exploded[0];
+        $action = $action_exploded[1];
+        $path = 'application\controllers\\'.ucfirst($controller);
+        if(isset($this->params['params'])){
+            $parameters = $this->params['params'];
+
+//            var_dump($parameters);die;
+//            $list_of_params = [];
+//            foreach ($parameters as $key => $value){
+//                $list_of_params[] = eval("$".$key.';');
+//            }
+//            var_dump($list_of_params);
+            $param_existing_status = 1;
+        }
+        if(class_exists($path)){
+            if(method_exists($path, $action)){
+                $controller = new $path;
+                if($param_existing_status == 1){
+                    call_user_func_array([$controller, $action], $parameters);
+//                    $controller->$action($list_of_params);
                 }else{
-                    echo 'Action '. $action . 'does not exist !! ';
+                    $controller->$action();
                 }
+
             }else{
-                echo 'Class '.$path.' not exist';
+                echo 'Method ' .$action. ' does not exist !!! ';
             }
+        }else{
+            echo 'Controller ' .$controller. ' does not exist !!! ';
         }
+
+
     }
 
 
-    public function makeRegex(){
-        $str_explode = explode('/', trim($_SERVER['REQUEST_URI'],'/'));
 
-        $regUrl = '~';
-        foreach ($str_explode as $item) {
-            $pattern = '~\{(\w+)\}~';
-            if (preg_match($pattern, $item)) {
-                $regUrl .=  "\/(?P<$item>[^\/]+)";
-            } else {
-                $regUrl .= '\/' . $item;
-            }
-        }
 
-        $regUrl . '~';
-        $url = $regUrl;
-
-        $this->url = $url;
-        echo $this->url;
-    }
 }

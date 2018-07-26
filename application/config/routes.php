@@ -30,12 +30,12 @@ return [
     [
         'url' => 'get_book/all',
         'method' => 'GET',
-        'action' => "BooksController@get_book"
+        'action' => "BookController@show_all_books"
     ],
     [
-        'url' => 'get_book/{book_id}/{aaa}',
+        'url' => 'get_book/{book_id}/{param2}/{param3}',
         'method' => 'GET',
-        'action' => "BooksController@get_book",
+        'action' => "BookController@get_book",
     ],
 
 ];
