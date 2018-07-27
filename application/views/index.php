@@ -57,11 +57,11 @@
 
 <?php
     $db = new \application\lib\Db();
-    $selected = $db->selectWhere('users','id',3);
+    $selected = $db->selectWhere('users','id','3');
 ?>
 <br>
 <hr>
-Search
+<p>Search</p>
 <hr>
 <table border="1">
     <tr>

@@ -34,8 +34,7 @@ class Db{
     }
 
     public function selectWhere($table,$column_name,$value){
-        $sql = 'SELECT * FROM '.$table.' WHERE '.$column_name.'='.$value;
-//        var_dump($sql);die;
+        $sql = 'SELECT * FROM '.$table.' WHERE '.$column_name.'="'.$value.'"';
         $query = $this->db->query($sql);
         $result =$query->fetchAll();
         return $result;
