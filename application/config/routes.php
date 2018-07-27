@@ -37,7 +37,21 @@ return [
         'method' => 'GET',
         'action' => "BookController@get_book",
     ],
-
+    [
+        'url' => 'create_new_user',
+        'method' => 'POST',
+        'action' => 'UsersController@createUser'
+    ],
+    [
+        'url' => 'update_username',
+        'method' => 'POST',
+        'action' => 'UsersController@updateUser'
+    ],
+    [
+        'url' => 'delete_user',
+        'method' => 'POST',
+        'action' => 'UsersController@deleteUser'
+    ]
 ];
 
 

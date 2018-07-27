@@ -13,6 +13,7 @@ spl_autoload_register(function($class){
 
 session_start();
 $router = new Router();
+$db = new Db();
 $router->run();
 
 

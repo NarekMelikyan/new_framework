@@ -15,10 +15,8 @@ class View{
     public static function render($file, $variables = []) {
 
         self::$view_base_path = 'application/views/';
-//        echo file_get_contents(self::$view_base_path.$file);
         require_once self::$view_base_path.$file.'.php';
         return $variables;
-
 
     }
 }
