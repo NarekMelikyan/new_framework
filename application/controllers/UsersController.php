@@ -9,6 +9,7 @@
 namespace application\controllers;
 
 use application\lib\Db;
+use application\models\Users;
 
 class UsersController
 {
@@ -34,9 +35,7 @@ class UsersController
 
     public function deleteUser(){
         $id = $_POST['id'];
-        $table = 'users';
-        $db = new Db();
-        $db->delete($table,$id);
+        Users::safeDelete($id);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 
     }

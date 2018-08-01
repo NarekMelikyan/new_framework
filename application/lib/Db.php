@@ -27,7 +27,7 @@ class Db{
     }
 
     public function select($table){
-        $sql = 'SELECT * FROM '.$table;
+        $sql = 'SELECT * FROM '.$table.' WHERE deleted_at="0"';
         $query = $this->db->query($sql);
         $result =$query->fetchAll();
         return $a =$result;
@@ -75,9 +75,6 @@ class Db{
         }
     }
 
-    public function where($column_name,$eval_value){
-
-    }
 
 
 }

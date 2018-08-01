@@ -13,6 +13,11 @@ return [
         'action' => "HomeController@index"
     ],
     [
+        'url' => '/users-page',
+        'method' => 'GET',
+        'action' => "HomeController@usersPage"
+    ],
+    [
         'url' => 'account/login',
         'method' => 'GET',
         'action' => "AccountController@login"
@@ -24,7 +29,7 @@ return [
     ],
     [
         'url' => 'account/registration',
-        'method' => 'GET',
+        'method' => 'POST',
         'action' => "AccountController@registration"
     ],
     [
