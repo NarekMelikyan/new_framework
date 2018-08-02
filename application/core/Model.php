@@ -13,7 +13,6 @@ use application\models\Users;
 class Model{
 
     protected static $db;
-
     private $host='localhost';
     private $db_name='mvc';
     private $username='root';
@@ -27,7 +26,6 @@ class Model{
         $users = new Users();
         return $users->table;
     }
-
 
     public static function all(){
         $sql = "SELECT * FROM ".self::table_name().' WHERE deleted_at="'.'NULL'.'"';
@@ -59,13 +57,12 @@ class Model{
 
         $sql = $sql_first_part.self::table_name().' ('.$sql_column_part.') VALUES('.$sql_values_part.')';
 
-        // Creating user to table
+        // Creating user in table
         $query = self::$db->query($sql);
 
         $last_id = self::$db->lastInsertId();
 
         return $last_id;
-
     }
 
     /**
@@ -83,15 +80,10 @@ class Model{
         }
     }
 
-    public function softDelete(){
-
-    }
-
     /**
      * @return \PDO
      */
     public static function update($search_column, $value, $data){
-
         $sql_first_part = 'UPDATE '.self::table_name().' SET ';
         $sql_second_part = '';
         $sql_third_part = ' WHERE '.$search_column.'="'.$value.'"';
@@ -102,7 +94,6 @@ class Model{
         $sql_second_part = ltrim($sql_second_part, ',');
         $sql = $sql_first_part.$sql_second_part.$sql_third_part;
         $query = self::$db->query($sql);
-
     }
 
     public static function safeDelete($id){

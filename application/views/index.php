@@ -66,7 +66,6 @@ if(isset($_SESSION)){
     </form>
 </div>
 
-
 <?php
     $db = new \application\lib\Db();
     $selected = $db->selectWhere('users','id','3');
@@ -108,7 +107,6 @@ if(isset($_SESSION)){
     }
 
     $db = new \application\lib\Db();
-
     ?>
 </table>
 

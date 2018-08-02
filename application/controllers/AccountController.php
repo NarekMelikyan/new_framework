@@ -7,10 +7,7 @@ use application\models\Users;
 class AccountController{
 
     public function login(){
-
         $err_messages = [];
-
-
         $email  = $_POST['email'];
         $password = $_POST['password'];
 
@@ -18,7 +15,6 @@ class AccountController{
 
         if(empty($email)){ $err_messages['login_empty_email'] = 'Your email field is empty!<br>';}
         if(empty($password)) {$err_messages['login_empty_password'] = 'Your password field is empty!<br>';}
-
 
         if($user){
             if(password_verify($password,$user[0]['password'])){
@@ -35,11 +31,9 @@ class AccountController{
             setcookie('errors',serialize($err_messages),time()+1,'/');
             header("Location: /");
         }
-$a = 1;
     }
 
     public function registration(){
-
         $name = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -66,6 +60,7 @@ $a = 1;
             setcookie('errors',serialize($err_messages),time()+1,'/');
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
+
         $data = [
             'name' => $name,
             'email' => $email,
@@ -77,12 +72,10 @@ $a = 1;
 
         $user = Users::where('id',$last_id);
 
-
         session_start();
         $_SESSION['email'] = $data['email'];
         setcookie('user',$data['email'],time()+3600,'/');
         header("Location: users-page");
-
     }
 
 

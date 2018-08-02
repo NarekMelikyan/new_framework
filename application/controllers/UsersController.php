@@ -15,8 +15,6 @@ class UsersController
 {
     public function createUser(){
         $name = $_POST['name'];
-        $table = 'users';
-        $db = new Db();
         $data = [
             'name' => $name,
             'email' => null,
@@ -24,7 +22,6 @@ class UsersController
         ];
         Users::create($data);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
 
     public function updateUser(){
@@ -34,13 +31,11 @@ class UsersController
         $db = new Db();
         $db->update($table,'name',$name,'id',$id);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
 
     public function deleteUser(){
         $id = $_POST['id'];
         Users::safeDelete($id);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
 }
