@@ -1,3 +1,12 @@
+<?php
+
+if(isset($_SESSION)){
+    if($_SESSION['email'] !== $_COOKIE['user']){
+        header('Location: /');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +14,9 @@
     <title>MyMVC index page</title>
 </head>
 <body>
+<form action="/account/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
 <h1>This is index page !!</h1>
 <h3 style="text-decoration: underline">Users List</h3>
 <table border="1">

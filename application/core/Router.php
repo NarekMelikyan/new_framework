@@ -86,7 +86,6 @@ class Router{
     }
 
     public function run(){
-
         $param_existing_status = 0;
 
         $action = $this->params['action'];

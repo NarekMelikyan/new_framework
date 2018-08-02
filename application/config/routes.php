@@ -13,7 +13,7 @@ return [
         'action' => "HomeController@index"
     ],
     [
-        'url' => '/users-page',
+        'url' => 'account/users-page',
         'method' => 'GET',
         'action' => "HomeController@usersPage"
     ],
@@ -26,6 +26,11 @@ return [
         'url' => 'account/login',
         'method' => 'POST',
         'action' => "AccountController@login"
+    ],
+    [
+        'url' => 'account/logout',
+        'method' => 'POST',
+        'action' => "AccountController@logout"
     ],
     [
         'url' => 'account/registration',

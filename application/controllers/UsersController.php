@@ -17,8 +17,12 @@ class UsersController
         $name = $_POST['name'];
         $table = 'users';
         $db = new Db();
-        $data = ['name' => $name];
-        $db->insert($table,$data);
+        $data = [
+            'name' => $name,
+            'email' => null,
+            'password' => null,
+        ];
+        Users::create($data);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
 
     }

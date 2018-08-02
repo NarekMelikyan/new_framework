@@ -9,8 +9,12 @@
 
 
 <?php
-$errors = unserialize($_COOKIE['errors']);
+if (isset($_COOKIE['errors']))
+    $errors = unserialize($_COOKIE['errors']);
 
+
+if(isset($_SESSION['email']))
+    header('Location: account/users-page')
 ?>
 
 <div class="container">
@@ -31,15 +35,43 @@ $errors = unserialize($_COOKIE['errors']);
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="https://phpoll.com/login/process" method="post" role="form"
+                            <form id="login-form" action="/account/login" method="post" role="form"
                                   style="display: block;">
+                                <span style="color: red">
+                                    <?php
+                                    if (isset($errors) && !isset($errors['login_empty_email'])) {
+                                        if (isset($errors['login_error'])) {
+                                            echo $errors['login_error'];
+                                        }
+                                    }
+
+                                    ?>
+                                </span>
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control"
-                                           placeholder="Username" value="">
+                                    <input type="text" name="email" id="username" tabindex="1" class="form-control"
+                                           placeholder="Email" value="">
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors)) {
+                                            if (isset($errors['login_empty_email'])) {
+                                                echo $errors['login_empty_email'];
+                                            }
+                                        }
+                                        ?>
+                                    </span>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="Password">
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors)) {
+                                            if (isset($errors['login_empty_password'])) {
+                                                echo $errors['login_empty_password'];
+                                            }
+                                        }
+                                        ?>
+                                    </span>
                                 </div>
 
                                 <div class="form-group">
@@ -58,10 +90,12 @@ $errors = unserialize($_COOKIE['errors']);
                                            placeholder="Username" value="">
                                     <span style="color: red">
                                         <?php
-                                        if (isset($errors['empty_username'])) {
-                                            echo $errors['empty_username'];
-                                        } elseif ($errors['name']) {
-                                            echo $errors['name'];
+                                        if (isset($errors)) {
+                                            if (isset($errors['empty_username'])) {
+                                                echo $errors['empty_username'];
+                                            } elseif (isset($errors['name'])) {
+                                                echo $errors['name'];
+                                            }
                                         }
                                         ?></span>
                                 </div>
@@ -70,10 +104,12 @@ $errors = unserialize($_COOKIE['errors']);
                                            placeholder="Email Address" value="">
                                     <span style="color: red">
                                         <?php
-                                        if (isset($errors['empty_email'])) {
-                                            echo $errors['empty_email'];
-                                        } elseif ($errors['email']) {
-                                            echo $errors['email'];
+                                        if (isset($errors)) {
+                                            if (isset($errors['empty_email'])) {
+                                                echo $errors['empty_email'];
+                                            } elseif ($errors['email']) {
+                                                echo $errors['email'];
+                                            }
                                         }
                                         ?>
                                     </span>
@@ -81,12 +117,17 @@ $errors = unserialize($_COOKIE['errors']);
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="Password">
+                                    <span style="color: red">
                                     <?php
-                                    if (isset($errors['password_confirmation'])) {
-                                        echo $errors['password_confirmation'];
+                                    if (isset($errors)) {
+                                        if (isset($errors['empty_password'])) {
+                                            echo $errors['empty_password'];
+                                        } elseif (isset($errors['password_confirmation'])) {
+                                            echo $errors['password_confirmation'];
+                                        }
                                     }
                                     ?>
-
+                                    </span>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="confirm-password" id="confirm-password" tabindex="2"
