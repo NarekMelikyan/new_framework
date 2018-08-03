@@ -4,6 +4,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="/public/js/validate.min.js"></script>
+
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -13,7 +15,7 @@ if (isset($_COOKIE['errors']))
     $errors = unserialize($_COOKIE['errors']);
 
 
-if(isset($_SESSION['email']))
+if (isset($_SESSION['email']))
     header('Location: account/users-page')
 ?>
 
@@ -37,7 +39,7 @@ if(isset($_SESSION['email']))
                         <div class="col-lg-12">
                             <form id="login-form" action="/account/login" method="post" role="form"
                                   style="display: block;">
-                                <span style="color: red">
+                                <span style="color: red" id="login_email_error">
                                     <?php
                                     if (isset($errors) && !isset($errors['login_empty_email'])) {
                                         if (isset($errors['login_error'])) {
@@ -48,7 +50,7 @@ if(isset($_SESSION['email']))
                                     ?>
                                 </span>
                                 <div class="form-group">
-                                    <input type="text" name="email" id="username" tabindex="1" class="form-control"
+                                    <input type="text" name="email" id="email" tabindex="1" class="form-control"
                                            placeholder="Email" value="">
                                     <span style="color:red;">
                                         <?php
@@ -58,7 +60,8 @@ if(isset($_SESSION['email']))
                                             }
                                         }
                                         ?>
-                                    </span>
+                                    </span><br>
+                                    <span id="login_password_error" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
@@ -107,7 +110,7 @@ if(isset($_SESSION['email']))
                                         if (isset($errors)) {
                                             if (isset($errors['empty_email'])) {
                                                 echo $errors['empty_email'];
-                                            } elseif ($errors['email']) {
+                                            } elseif (isset($errors['email'])) {
                                                 echo $errors['email'];
                                             }
                                         }
@@ -130,7 +133,7 @@ if(isset($_SESSION['email']))
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2"
+                                    <input type="password" name="password_again" id="password_again" tabindex="2"
                                            class="form-control" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
@@ -158,10 +161,15 @@ if(isset($_SESSION['email']))
     }
 </style>
 
+
+<script src="/public/js/main.js"></script>
+
 <script>
+
     $(function () {
 
         $('#login-form-link').click(function (e) {
+            $('#login-form #pass').attr('id', 'password');
             $("#login-form").delay(100).fadeIn(100);
             $("#register-form").fadeOut(100);
             $('#register-form-link').removeClass('active');
@@ -169,6 +177,7 @@ if(isset($_SESSION['email']))
             e.preventDefault();
         });
         $('#register-form-link').click(function (e) {
+            $('#login-form #password').attr('id', 'pass');
             $("#register-form").delay(100).fadeIn(100);
             $("#login-form").fadeOut(100);
             $('#login-form-link').removeClass('active');
@@ -177,4 +186,6 @@ if(isset($_SESSION['email']))
         });
 
     });
+
+
 </script>

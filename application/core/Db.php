@@ -6,7 +6,7 @@
  * Time: 11:21
  */
 
-namespace application\lib;
+namespace application\core;
 use PDO;
 
 class Db{
@@ -29,8 +29,8 @@ class Db{
     public function select($table){
         $sql = 'SELECT * FROM '.$table.' WHERE deleted_at="0"';
         $query = $this->db->query($sql);
-        $result =$query->fetchAll();
-        return $a =$result;
+        $result = $query->fetchAll();
+        return $a = $result;
     }
 
     public function selectWhere($table,$column_name,$value){
@@ -66,13 +66,9 @@ class Db{
         $this->db->query($sql);
     }
 
-    public function delete($table,$id){
-        $sql = "DELETE FROM ".$table.' WHERE id='.$id;
-        if($this->db->query($sql) == TRUE){
-            echo "Record deleted successfully";
-        } else {
-            echo "Error deleting record: " . $this->db->error;
-        }
+    public function safeDelete($table,$id){
+        $sql = 'UPDATE '.$table.' SET deleted_at="'.date('Y-m-d H:i:s').'" WHERE id="'.$id.'"';
+        $query = $this->db->query($sql);
     }
 
 

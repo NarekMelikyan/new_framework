@@ -8,17 +8,19 @@
 
 namespace application\controllers;
 
-use application\lib\Db;
+use application\core\Db;
 use application\models\Users;
 
 class UsersController
 {
     public function createUser(){
         $name = $_POST['name'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
         $data = [
             'name' => $name,
-            'email' => null,
-            'password' => null,
+            'email' => $email,
+            'password' => crypt($password),
         ];
         Users::create($data);
         header('Location: ' . $_SERVER['HTTP_REFERER']);

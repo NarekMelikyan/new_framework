@@ -51,7 +51,7 @@ if(isset($_SESSION)){
         echo '</tr>';
     }
 
-    $db = new \application\lib\Db();
+    $db = new \application\core\Db();
 
     ?>
 </table>
@@ -61,13 +61,15 @@ if(isset($_SESSION)){
 <div style="border: 1px solid;padding: 5px;width: 15%;text-align: center">
     CREATE USERNAME
     <form method="post" action="/create_new_user" style="margin-top: 5px">
-        <input name="name"><br>
+        <input type="text" name="name" placeholder="Name"><br><br>
+        <input type="email" name="email" placeholder="Email"><br><br>
+        <input type="password" name="password" placeholder="Password"><br><br>
         <button type="submit" style="margin-top: 5px">Create</button>
     </form>
 </div>
 
 <?php
-    $db = new \application\lib\Db();
+    $db = new \application\core\Db();
     $selected = $db->selectWhere('users','id','3');
 ?>
 <br>
@@ -106,7 +108,7 @@ if(isset($_SESSION)){
         echo '</tr>';
     }
 
-    $db = new \application\lib\Db();
+    $db = new \application\core\Db();
     ?>
 </table>
 

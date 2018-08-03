@@ -3,7 +3,7 @@
 namespace application\controllers;
 
 use application\core\View;
-use application\lib\Db;
+use application\core\Db;
 use application\models\Users;
 
 class HomeController{
@@ -15,7 +15,7 @@ class HomeController{
     public function usersPage(){
         $db = new DB();
 
-        $users = $db->select('users');
+        $users = Users::all();
 
         View::render('index',$variables = ['users'=>$users]);
     }

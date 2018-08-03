@@ -1,6 +1,6 @@
 <?php
 use application\core\Router;
-use application\lib\Db;
+use application\core\Db;
 use application\core\View;
 
 spl_autoload_register(function($class){
