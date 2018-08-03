@@ -38,8 +38,8 @@ $(document).ready(function () {
         })
     }
 
-    validateForm($('#login-form'))  // login form validation
-    validateForm($('#register-form'))  // registration form validation
+    // validateForm($('#login-form'))  // login form validation
+    // validateForm($('#register-form'))  // registration form validation
 
 
 })
