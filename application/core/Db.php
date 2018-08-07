@@ -17,26 +17,25 @@ class Db{
     protected $db;
 
     public function __construct(){
-        $this->db = new PDO('mysql:host='.$this->host.';dbname='.$this->db_name,$this->username,$this->password);
+        $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
     }
 
     public function query($sql){
         $query = $this->db->query($sql);
         $result =$query->fetchAll();
-
     }
 
     public function select($table){
-        $sql = 'SELECT * FROM '.$table.' WHERE deleted_at="0"';
+        $sql = 'SELECT * FROM ' . $table . ' WHERE deleted_at="0"';
         $query = $this->db->query($sql);
         $result = $query->fetchAll();
         return $a = $result;
     }
 
     public function selectWhere($table,$column_name,$value){
-        $sql = 'SELECT * FROM '.$table.' WHERE '.$column_name.'="'.$value.'"';
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $column_name . '="' . $value . '"';
         $query = $this->db->query($sql);
-        $result =$query->fetchAll();
+        $result = $query->fetchAll();
         return $result;
     }
 
@@ -46,28 +45,27 @@ class Db{
         $sql_values_part = '';
 
         foreach ($data as $key => $value){
-            $sql_column_part .= ','.$key;
-            $sql_values_part .= ','.$value;
+            $sql_column_part .= ',' . $key;
+            $sql_values_part .= ',' . $value;
             $sql_column_part = trim($sql_column_part, ',');
             $sql_values_part = trim($sql_values_part, ',');
         }
         $sql_values_part = str_replace(',','","',$sql_values_part);
-        $sql_values_part = '"'.$sql_values_part.'"';
+        $sql_values_part = '"' . $sql_values_part . '"';
 
-        $sql = $sql_first_part.$table.' ('.$sql_column_part.') VALUES('.$sql_values_part.')';
+        $sql = $sql_first_part . $table . ' (' . $sql_column_part . ') VALUES(' . $sql_values_part . ')';
         $query = $this->db->query($sql);
 
         $this->select($table);
-
     }
 
     public function update($table, $updatable_colomn, $updatable_value, $find_column, $column_value){
-        $sql = "UPDATE ".$table.' SET '.$updatable_colomn.'="'.$updatable_value.'" WHERE '.$find_column.'='.$column_value;
+        $sql = "UPDATE " . $table . ' SET ' . $updatable_colomn . '="'.$updatable_value . '" WHERE ' . $find_column . '=' . $column_value;
         $this->db->query($sql);
     }
 
     public function safeDelete($table,$id){
-        $sql = 'UPDATE '.$table.' SET deleted_at="'.date('Y-m-d H:i:s').'" WHERE id="'.$id.'"';
+        $sql = 'UPDATE ' . $table . ' SET deleted_at="' . date('Y-m-d H:i:s') . '" WHERE id="' . $id . '"';
         $query = $this->db->query($sql);
     }
 

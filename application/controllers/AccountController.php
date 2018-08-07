@@ -12,29 +12,40 @@ class AccountController{
         $email  = $_POST['email'];
         $password = $_POST['password'];
 
+        setcookie('form_name','login',time()+1,'/');
+
+
+        $data = [
+            'email' => $email,
+            'password' => $password
+        ];
+
+        $validator = Validator::validate($data,[
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $user = Users::where('email',$email);
-
-        if(empty($email)){ $err_messages['login_empty_email'] = 'Your email field is empty!<br>';}
-        if(empty($password)) {$err_messages['login_empty_password'] = 'Your password field is empty!<br>';}
-
         if($user){
-            if(password_verify($password,$user[0]['password'])){
+            if(password_verify($password,$user[0]['password']) && $data['email'] == $user[0]['email']){
                 session_start();
                 $_SESSION['email'] = $email;
                 setcookie('user',$email,time()+3600,'/');
                 header("Location: users-page");
             }else{
-                $err_messages['login_error'] = 'Email or password are wrong !';
-                setcookie('errors',serialize($err_messages),time()+1,'/');
+                setcookie('user_does_not_exist','Please check email and password !',time()+1,'/');
                 header("Location: /");
             }
         }else{
+            setcookie('user_does_not_exist','Please check email and password !',time()+1,'/');
             setcookie('errors',serialize($err_messages),time()+1,'/');
             header("Location: /");
         }
     }
 
     public function registration(){
+
+        setcookie('form_name','registration',time()+1,'/');
 
         $name = $_POST['username'];
         $email = $_POST['email'];
@@ -48,16 +59,16 @@ class AccountController{
             'password_again' => $password_again
         ];
 
-        $validation = Validator::validate($data,[
+        $validation = Validator::validate($data, [
             'name' => 'required',
-            'email' => 'email',
+            'email' => 'email|unique',
             'password' => 'required|min:6',
             'password_again' => 'equal:password'
         ]);
 
         $last_id = Users::create($data);
 
-        $user = Users::where('id',$last_id);
+        $user = Users::where('id', $last_id);
 
         session_start();
         $_SESSION['email'] = $data['email'];

@@ -6,7 +6,6 @@
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="/public/js/validate.min.js"></script>
 </head>
 <body>
 
@@ -15,6 +14,18 @@
 
 <?php
 
+if (isset($_COOKIE['form_name'])) {
+    $form_name = $_COOKIE['form_name'];
+    if ($form_name == 'login') {
+        echo '<input type="hidden" value="1" id="form_name"">';
+    } else {
+        echo '<input type="hidden" value="2" id="form_name">';
+    }
+} else {
+    $form_name = '';
+    echo '<input type="hidden" value="0" id="form_name">';
+}
+
 if (isset($_COOKIE['errors'])) {
     $errors = unserialize($_COOKIE['errors']);
 }
@@ -22,18 +33,7 @@ if (isset($_COOKIE['errors'])) {
 if (isset($_SESSION['email']))
     header('Location: account/users-page')
 ?>
-<div class="container">
-    <?php
-        if(isset($errors)){
-            echo '<div class="alert alert-danger">';
-            foreach ($errors as $error){
-                echo ' '. $error .'<br>';
-            }
-            echo '</div>';
-        }
 
-    ?>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -54,49 +54,55 @@ if (isset($_SESSION['email']))
                         <div class="col-lg-12">
                             <form id="login-form" action="/account/login" method="post" role="form"
                                   style="display: block;">
-                                <!--                                <span style="color: red" id="login_email_error">-->
-                                <!--                                    --><?php
-                                //                                    if (isset($errors) && !isset($errors['login_empty_email'])) {
-                                //                                        if (isset($errors['login_error'])) {
-                                //                                            echo $errors['login_error'];
-                                //                                        }
-                                //                                    }
-                                //
-                                //                                    ?>
-                                <!--                                </span>-->
+                                <div style="text-align: center;color: red;">
+                                    <?php
+                                    if (isset($_COOKIE['user_does_not_exist']) && $form_name == 'login') {
+                                        $login_error = $_COOKIE['user_does_not_exist'];
+                                        echo $login_error;
+                                    }
+                                    ?>
+                                </div>
                                 <div class="form-group">
                                     <input type="text" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email" value="">
-                                    <!--                                    <span style="color:red;">-->
-                                    <!--                                        --><?php
-                                    //                                        if (isset($errors)) {
-                                    //                                            if (isset($errors['login_empty_email'])) {
-                                    //                                                echo $errors['login_empty_email'];
-                                    //                                            }
-                                    //                                        }
-                                    //                                        ?>
-                                    <!--                                    </span><br>-->
-                                    <span id="login_password_error" style="color: red"></span>
+                                           placeholder="Email">
+                                    <span style="color:red;">
+                                                    <?php
+                                                    if (isset($errors) && $form_name == 'login') {
+                                                        foreach ($errors as $error) {
+                                                            foreach ($error as $key => $item) {
+                                                                if ($key == 'email') {
+                                                                    echo $item;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </span><br>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="Password">
-                                    <!--                                    <span style="color:red;">-->
-                                    <!--                                        --><?php
-                                    //                                        if (isset($errors)) {
-                                    //                                            if (isset($errors['login_empty_password'])) {
-                                    //                                                echo $errors['login_empty_password'];
-                                    //                                            }
-                                    //                                        }
-                                    //                                        ?>
-                                    <!--                                    </span>-->
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors) && $form_name == 'login') {
+                                            foreach ($errors as $error) {
+                                                foreach ($error as $key => $item) {
+                                                    if ($key == 'password') {
+                                                        echo $item;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </span><br>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4"
-                                                   class="form-control btn btn-login" value="Log In">
+                                            <button type="button" id="submit" tabindex="4"
+                                                    class="form-control btn btn-login login_submit" value="Log In">Log in
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -106,57 +112,78 @@ if (isset($_SESSION['email']))
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
                                            placeholder="Username" value="">
-                                    <!--                                    <span style="color: red">-->
-                                    <!--                                        --><?php
-                                    //                                        if (isset($errors)) {
-                                    //                                            if (isset($errors['empty_username'])) {
-                                    //                                                echo $errors['empty_username'];
-                                    //                                            } elseif (isset($errors['name'])) {
-                                    //                                                echo $errors['name'];
-                                    //                                            }
-                                    //                                        }
-                                    //                                        ?><!--</span>-->
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors) && $form_name == 'registration') {
+                                            foreach ($errors as $error) {
+                                                foreach ($error as $key => $item) {
+                                                    if ($key == 'name') {
+                                                        echo $item;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </span><br>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control"
-                                           placeholder="Email Address" value="">
-                                    <!--                                    <span style="color: red">-->
-                                    <!--                                        --><?php
-                                    //                                        if (isset($errors)) {
-                                    //                                            if (isset($errors['empty_email'])) {
-                                    //                                                echo $errors['empty_email'];
-                                    //                                            } elseif (isset($errors['email'])) {
-                                    //                                                echo $errors['email'];
-                                    //                                            }
-                                    //                                        }
-                                    //                                        ?>
-                                    <!--                                    </span>-->
+                                           placeholder="Email Address">
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors) && $form_name == 'registration') {
+                                            foreach ($errors as $error) {
+                                                foreach ($error as $key => $item) {
+                                                    if ($key == 'email') {
+                                                        echo $item;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </span><br>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="Password">
-                                    <!--                                    <span style="color: red">-->
-                                    <!--                                    --><?php
-                                    //                                    if (isset($errors)) {
-                                    //                                        if (isset($errors['empty_password'])) {
-                                    //                                            echo $errors['empty_password'];
-                                    //                                        } elseif (isset($errors['password_confirmation'])) {
-                                    //                                            echo $errors['password_confirmation'];
-                                    //                                        }
-                                    //                                    }
-                                    //                                    ?>
-                                    <!--                                    </span>-->
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors) && $form_name == 'registration') {
+                                            foreach ($errors as $error) {
+                                                foreach ($error as $key => $item) {
+                                                    if ($key == 'password') {
+                                                        echo $item;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </span><br>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password_again" id="password_again" tabindex="2"
                                            class="form-control" placeholder="Confirm Password">
+                                    <span style="color:red;">
+                                        <?php
+                                        if (isset($errors) && $form_name == 'registration') {
+                                            foreach ($errors as $error) {
+                                                foreach ($error as $key => $item) {
+                                                    if ($key == 'password_again') {
+                                                        echo $item;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </span><br>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit"
-                                                   tabindex="4" class="form-control btn btn-register"
-                                                   value="Register Now">
+                                            <button type="button" name="submit" id="register-submit"
+                                                    tabindex="4" class="form-control btn btn-register submit">
+                                                Register Now
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -178,13 +205,56 @@ if (isset($_SESSION['email']))
 
 
 <script src="/public/js/main.js"></script>
+<script src="/public/js/validation.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var form_name = $('#form_name').val();
+        if (form_name == 1) {
+            setTimeout(function () {
+                $('#login-form-link').click()
+            })
+        }
+
+        if (form_name == 2) {
+            setTimeout(function () {
+                $('#register-form-link').click()
+            })
+        }
+    })
+
+    $('.submit').click(function () {
+        rules = [
+            ['username', 'required'],
+            ['email', 'email'],
+            ['password', 'required|min:6'],
+            ['password_again', 'equal:password']
+        ]
+
+        validateForm($('#register-form'),rules);
+    })
+
+
+    $('.login_submit').click(function () {
+        rules = [
+            ['email','required'],
+            ['password','required']
+        ]
+
+        validateForm($('#login-form'),rules);
+    })
+
+
+</script>
+
+
+
 
 <script>
 
     $(function () {
 
         $('#login-form-link').click(function (e) {
-            $('#login-form #pass').attr('id', 'password');
             $("#login-form").delay(100).fadeIn(100);
             $("#register-form").fadeOut(100);
             $('#register-form-link').removeClass('active');
@@ -192,7 +262,6 @@ if (isset($_SESSION['email']))
             e.preventDefault();
         });
         $('#register-form-link').click(function (e) {
-            $('#login-form #password').attr('id', 'pass');
             $("#register-form").delay(100).fadeIn(100);
             $("#login-form").fadeOut(100);
             $('#login-form-link').removeClass('active');

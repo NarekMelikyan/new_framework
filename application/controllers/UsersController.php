@@ -22,6 +22,7 @@ class UsersController
             'email' => $email,
             'password' => crypt($password),
         ];
+
         Users::create($data);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
