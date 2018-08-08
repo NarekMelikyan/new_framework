@@ -14,6 +14,10 @@ class Connection
     private $_connection;
     private static $_instance; //The single instance
 
+    private function __construct() {
+        $this->_connection = new \PDO('mysql:host=' . constant('DB_HOST') . ';dbname=' . constant('DB_DATABASE'), constant('DB_USERNAME'), constant('DB_PASSWORD'));
+    }
+
     /*
 	Get an instance of the Database
 	@return Instance
@@ -24,14 +28,10 @@ class Connection
         }
         return self::$_instance;
     }
-    // Constructor
-    private function __construct() {
-        $this->_connection = new \PDO('mysql:host=' . constant('DB_HOST') . ';dbname=' . constant('DB_DATABASE'), constant('DB_USERNAME'), constant('DB_PASSWORD'));
 
-    }
     // Magic method clone is empty to prevent duplication of connection
     private function __clone() { }
-    // Get mysqli connection
+
     public function getConnection() {
         return $this->_connection;
     }
