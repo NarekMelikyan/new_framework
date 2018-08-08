@@ -58,11 +58,49 @@ if(isset($_SESSION)){
 <br>
 <br>
 <br>
+<?php
+if(isset($_COOKIE['errors'])){
+    $errors = unserialize($_COOKIE['errors']);
+}
+?>
 <div style="border: 1px solid;padding: 5px;width: 15%;text-align: center">
     CREATE USERNAME
     <form method="post" action="/create_new_user" style="margin-top: 5px">
+        <?php
+        if(isset($errors)){
+            foreach ($errors as $error){
+                foreach ($error as $key => $item){
+                    if($key == 'name'){
+                        echo '<p style="color: red;margin: 0">' . $item . '</p>';
+                    }
+                }
+            }
+        }
+        ?>
         <input type="text" name="name" placeholder="Name"><br><br>
+        <?php
+        if(isset($errors)){
+            foreach ($errors as $error){
+                foreach ($error as $key => $item){
+                    if($key == 'email'){
+                        echo '<p style="color: red;margin: 0">' . $item . '</p>';
+                    }
+                }
+            }
+        }
+        ?>
         <input type="email" name="email" placeholder="Email"><br><br>
+        <?php
+        if(isset($errors)){
+            foreach ($errors as $error){
+                foreach ($error as $key => $item){
+                    if($key == 'password'){
+                        echo '<p style="color: red;margin: 0">' . $item . '</p>';
+                    }
+                }
+            }
+        }
+        ?>
         <input type="password" name="password" placeholder="Password"><br><br>
         <button type="submit" style="margin-top: 5px">Create</button>
     </form>

@@ -7,17 +7,14 @@
  */
 
 namespace application\core;
-use PDO;
 
 class Db{
-    private $host='localhost';
-    private $db_name='mvc';
-    private $username='root';
-    private $password='';
-    protected $db;
+
+    public $db = '';
 
     public function __construct(){
-        $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
+        $conn = Connection::getInstance()->getConnection();
+        $this->db = $conn;
     }
 
     public function query($sql){

@@ -3,7 +3,6 @@
 namespace application\controllers;
 
 use application\core\View;
-use application\core\Db;
 use application\models\Users;
 
 class HomeController{

@@ -27,6 +27,7 @@ class Validator
     public static function validate($data, $roles){
 
         foreach ($data as $key => $value) {
+            //                      example
             // $value == John , john@gmail.com          , 123456  , 123456
             // $key   == name  , email                  , password, password_again
 

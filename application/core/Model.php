@@ -7,8 +7,8 @@
  */
 namespace application\core;
 
-use application\lib\Db;
 use application\models\Users;
+
 
 class Model{
 
@@ -19,7 +19,8 @@ class Model{
     private $password='';
 
     public function __construct(){
-        self::$db = new \PDO('mysql:host='.$this->host.';dbname='.$this->db_name,$this->username,$this->password);
+        $conn = Connection::getInstance()->getConnection();
+        self::$db = $conn;
     }
 
     public static function table_name() {

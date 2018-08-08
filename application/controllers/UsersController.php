@@ -9,6 +9,7 @@
 namespace application\controllers;
 
 use application\core\Db;
+use application\core\Validator;
 use application\models\Users;
 
 class UsersController
@@ -20,8 +21,14 @@ class UsersController
         $data = [
             'name' => $name,
             'email' => $email,
-            'password' => crypt($password),
+            'password' => $password,
         ];
+
+        Validator::validate($data,[
+            'name' => 'required',
+            'email' => 'email',
+            'password' => 'required'
+        ]);
 
         Users::create($data);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
