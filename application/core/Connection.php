@@ -28,11 +28,6 @@ class Connection
     private function __construct() {
         $this->_connection = new \PDO('mysql:host=' . constant('DB_HOST') . ';dbname=' . constant('DB_DATABASE'), constant('DB_USERNAME'), constant('DB_PASSWORD'));
 
-        // Error handling
-        if(mysqli_connect_error()) {
-            trigger_error("Failed to conencto to MySQL: " . mysql_connect_error(),
-                E_USER_ERROR);
-        }
     }
     // Magic method clone is empty to prevent duplication of connection
     private function __clone() { }
