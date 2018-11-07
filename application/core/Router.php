@@ -3,8 +3,7 @@
 namespace application\core;
 
 class Router{
-
-
+    
     protected $url ='';
     protected $routes = [];
     protected $params = [];
@@ -71,7 +70,6 @@ class Router{
                     $this->params['params'] = $massive;
                 }
             }else{
-
                 if(trim($_SERVER["REQUEST_URI"],'/') == $item['url']){
                     $this->params = $item;
                 }
