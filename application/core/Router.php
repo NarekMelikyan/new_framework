@@ -114,10 +114,7 @@ class Router{
         }else{
             echo 'Controller ' .$controller. ' does not exist !!! ';
         }
-
+        
     }
-
-
-
-
+    
 }
